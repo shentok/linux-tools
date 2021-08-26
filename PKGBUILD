@@ -7,7 +7,7 @@ pkgname=(
   'cpupower'
   'hyperv'
   'linux-tools-meta'
-  'perf'
+  'perf-multiarch'
 #  'python-perf'
   'tmon'
   'turbostat'
@@ -25,7 +25,7 @@ makedepends=('git')
 # kernel source deps
 makedepends+=('asciidoc' 'xmlto')
 # perf deps
-makedepends+=('perl' 'python' 'slang' 'elfutils' 'libunwind' 'numactl' 'audit' 'zstd' 'libcap')
+makedepends+=('perl' 'python' 'slang' 'elfutils' 'libunwind-multiarch' 'numactl' 'audit' 'zstd' 'libcap')
 # cpupower deps
 makedepends+=('pciutils')
 # usbip deps
@@ -157,11 +157,13 @@ package_linux-tools-meta() {
   )
 }
 
-package_perf() {
+package_perf-multiarch() {
   pkgdesc='Linux kernel performance auditing tool'
   depends=('glibc' 'perl' 'python' 'slang' 'elfutils' 'libunwind' 'binutils'
            'numactl' 'audit' 'coreutils' 'glib2' 'xz' 'zlib' 'libelf' 'bash'
            'zstd' 'libcap')
+  provides=('perf')
+  conflicts=('perf')
 
   cd linux/tools/perf
   make -f Makefile.perf \
